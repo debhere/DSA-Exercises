@@ -82,6 +82,23 @@ class CircularSinglyLinkedList:
     def get_length(self):
         return self.length
 
+    def searchList(self, val):
+        isExist = False
+        temp = self.head
+        if not temp:
+            isExist = False
+        else:
+            while temp:
+                if temp.value == val:
+                    isExist = True
+                    break
+                elif temp is self.tail:
+                    break
+                else:
+                    temp = temp.next
+
+        return isExist
+
     def deleteAll(self):
         self.head = None
         self.tail.next = None
@@ -112,6 +129,6 @@ print(csll)
 print()
 print(csll.delete(1))
 print(csll)
-print(csll.tail.next.value)
-csll.deleteAll()
-print(csll.get_length())
+print(csll.searchList(6))
+print(csll.searchList(3))
+
