@@ -50,29 +50,54 @@ class DoublyLinkedList:
         elif index == 0:
             pointer = self.head
             self.head = node
-            node.next = pointer
+            self.head.next = pointer
+            pointer.prev = self.head
             self.length += 1
             isInserted = True
         elif index == self.length or index == -1:
             pointer = self.tail
             self.tail = node
-            node.prev = pointer
-            pointer.next = node
+            self.tail.prev = pointer
+            pointer.next = self.tail
             self.length += 1
             isInserted = True
         else:
-            pointer = self.head
+            pointer, temp = self.head, None
             for _ in range(index):
+                temp = pointer
                 pointer = pointer.next
 
-            temp = pointer.prev
             temp.next = node
             node.prev = temp
             node.next = pointer
+            pointer.prev = node
             self.length += 1
             isInserted = True
 
         return isInserted
+
+    def deleteNode(self, index):
+        delVal = None
+        if not self.head or index >= self.length:
+            delVal = None
+        elif self.length == 1 and index == 0:
+            delVal = self.head.value
+            self.head = None
+            self.tail = None
+            self.length -= 1
+        else:
+            pointer = self.head
+            for _ in range(index):
+                pointer = pointer.next
+            delVal = pointer.value
+            temp = pointer.prev
+            temp.next = pointer.next
+            pointer.next.prev = temp
+            self.length -= 1
+        return delVal
+
+    def get_length(self):
+        return self.length
 
 
 dll = DoublyLinkedList()
@@ -87,4 +112,9 @@ dll.insertNode(2, 1.5)
 dll.insertNode(6, 5)
 dll.insertNode(-1, 6)
 print(dll)
+print()
+dll.deleteNode(1)
+print(dll)
+print(dll.get_length())
+
 
