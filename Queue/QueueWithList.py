@@ -17,7 +17,7 @@ class QueueWithList:
         return False if self.isEmpty() else self.items.pop(0)
 
     def peek(self):
-        return self.items[0]
+        return None if self.isEmpty() else self.items[0]
 
     def deleteQueue(self):
         self.items = None
