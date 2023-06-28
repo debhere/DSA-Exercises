@@ -117,4 +117,7 @@ dll.deleteNode(1)
 print(dll)
 print(dll.get_length())
 
+for node in dll:
+    print(node.value)
+
 
